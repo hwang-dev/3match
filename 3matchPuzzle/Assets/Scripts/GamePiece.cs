@@ -80,8 +80,9 @@ public class GamePiece : MonoBehaviour
             if (Vector3.Distance(transform.position, dest) < 0.01f)
             {
                 reachDest = true;
-
+                m_isMoving = false;
                 if (m_board != null) m_board.PlaceGamePiece(this, (int)dest.x, (int)dest.y);
+                yield break;
             }
 
             elapsedTime += Time.deltaTime;

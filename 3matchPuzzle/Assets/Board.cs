@@ -117,7 +117,7 @@ public class Board : MonoBehaviour
             Debug.Log($"----> clicked Tile: {m_clickedTile.name}");
         }
     }
-    
+
     bool IsWithBounds(int x, int y)
     {
         return (x >= 0 && x < width && y >= 0 && y < height);
@@ -125,8 +125,11 @@ public class Board : MonoBehaviour
 
     public void DragToTile(Tile tile)
     {
-        if (m_clickedTile != null && IsNextTo(m_clickedTile, m_targetTile))
+        if (m_clickedTile != null && IsNextTo(m_clickedTile, tile))
+        {
             m_targetTile = tile;
+            Debug.Log($"----> draged tile: {m_targetTile.name}");
+        }
     }
 
     public void ReleaseTile()
@@ -152,7 +155,7 @@ public class Board : MonoBehaviour
     private bool IsNextTo(Tile start, Tile end)
     {
         if (Mathf.Abs(start.xIndex - end.xIndex) == 1 && start.yIndex == end.yIndex) return true;
-        if (Mathf.Abs(start.yIndex - end.yIndex) == 1 && start.xIndex == end.yIndex) return true;
+        if (Mathf.Abs(start.yIndex - end.yIndex) == 1 && start.xIndex == end.xIndex) return true;
 
         return false;
     }
@@ -164,7 +167,7 @@ public class Board : MonoBehaviour
 
         if (IsWithBounds(startX, startY))
             startPiece = m_allGamePieces[startX, startY];
- 
+
         if (startPiece != null)
             matches.Add(startPiece);
         else
